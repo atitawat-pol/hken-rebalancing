@@ -1,3 +1,4 @@
+# Cr. Meawbin Investor
 import ccxt
 
 def authen(apiKey, secret, password, accountName):
@@ -8,7 +9,6 @@ def authen(apiKey, secret, password, accountName):
         'password' : password ,
         'enableRateLimit': True
         })
-    # Sub Account Check
     if accountName == "" :
         print("\n""Account Name - This is Main Account",': Broker - ',exchange)     
     else:
@@ -42,14 +42,14 @@ def action(asset_1_val: float, asset_2_val: float, averagePrice: float, client, 
         print("SELL")
         diff_sell  = asset_1_crrt_val - rebalance_mark
         print(diff_sell)
-        #client.create_order(quote ,'market','sell',(diff_sell / averagePrice)) # Unit USD/Price
+        client.create_order(quote ,'market','sell',(diff_sell / averagePrice)) # Unit USD/Price
         return True, "profit"
     elif asset_1_crrt_val < (rebalance_mark - (rebalance_mark*rebalance_percent_diff/100) ) :
         print("asset_1_crrt_val ",asset_1_crrt_val ,"<", (rebalance_mark - (rebalance_mark*rebalance_percent_diff/100) ))
         print("Buy")
         diff_buy  = rebalance_mark - asset_1_crrt_val
         print(diff_buy)
-        #client.create_order(quote ,'market','buy',(diff_buy / averagePrice))
+        client.create_order(quote ,'market','buy',(diff_buy / averagePrice))
         return True, "loss"
     else :
         print("None Trade")
@@ -59,6 +59,7 @@ def main():
     #load env
     from dotenv import load_dotenv
     import os
+    import time
 
     load_dotenv()
     apiKey = os.getenv("APIKEY")
@@ -74,14 +75,17 @@ def main():
     quote = str(asset_1) + "/" + str(asset_2)
 
     client = authen(apiKey, secret, password, accountName)
-    asset_1_val, asset_2_val, averagePrice = fetchBalance(
-        client, asset_1, asset_2, quote)
-    if asset_2 == "USD":
-        action(asset_1_val, asset_2_val, averagePrice, client, quote)
-    else:
-        raise(NotImplementedError("Not support asset_2 != stableCoin"))
+    while True:
+        try:
+            asset_1_val, asset_2_val, averagePrice = fetchBalance(
+                client, asset_1, asset_2, quote)
+            if asset_2 == "USD":
+                action(asset_1_val, asset_2_val, averagePrice, client, quote)
+            else:
+                raise(NotImplementedError("Not support asset_2 != stableCoin"))
+            time.sleep(60)
+        except:
+            time.sleep(60)
     
-    print("Done")
-
 if __name__ == "__main__":
     main()
