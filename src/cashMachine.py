@@ -21,10 +21,10 @@ def fetchBalance(client, asset_1, asset_2, quote):
     ticker = client.fetch_ticker(quote)
     asset_1_val, asset_2_val = balances.get(asset_1, {}).get("total", None), \
         balances.get(asset_2, {}).get("total", None)
+    print("asset_1_val:", asset_1_val)
+    print("asset_2_val:", asset_2_val)
     
     if asset_1_val is None or asset_2_val is None:
-        print("asset_1_val:", asset_1_val)
-        print("asset_2_val:", asset_2_val)
         raise ValueError("No balance available for trading")
    
     averagePrice = (ticker["bid"] + ticker["ask"]) / 2
