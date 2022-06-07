@@ -42,14 +42,14 @@ def action(asset_1_val: float, asset_2_val: float, averagePrice: float, client, 
         print("SELL")
         diff_sell  = asset_1_crrt_val - rebalance_mark
         print(diff_sell)
-        client.create_order(quote ,'market','sell',(diff_sell / averagePrice)) # Unit USD/Price
+        #client.create_order(quote ,'market','sell',(diff_sell / averagePrice)) # Unit USD/Price
         return True, "profit"
     elif asset_1_crrt_val < (rebalance_mark - (rebalance_mark*rebalance_percent_diff/100) ) :
         print("asset_1_crrt_val ",asset_1_crrt_val ,"<", (rebalance_mark - (rebalance_mark*rebalance_percent_diff/100) ))
         print("Buy")
         diff_buy  = rebalance_mark - asset_1_crrt_val
         print(diff_buy)
-        client.create_order(quote ,'market','buy',(diff_buy / averagePrice))
+        #client.create_order(quote ,'market','buy',(diff_buy / averagePrice))
         return True, "loss"
     else :
         print("None Trade")
