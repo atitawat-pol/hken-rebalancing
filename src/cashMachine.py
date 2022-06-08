@@ -76,15 +76,15 @@ def main():
     # make param
     quote = str(asset_1) + "/" + str(asset_2)
 
+    if asset_2 != "USD":
+        raise(NotImplementedError("Only supported Coin-USD"))
+
     client = authen(apiKey, secret, password, accountName)
     while True:
         try:
             asset_1_val, asset_2_val, averagePrice = fetchBalance(
                 client, asset_1, asset_2, quote)
-            if asset_2 == "USD":
-                action(asset_1_val, asset_2_val, averagePrice, client, quote, pcdiff)
-            else:
-                raise(NotImplementedError("Not support asset_2 != stableCoin"))
+            action(asset_1_val, asset_2_val, averagePrice, client, quote, pcdiff)
             time.sleep(interval)
         except:
             time.sleep(interval)
