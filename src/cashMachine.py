@@ -30,7 +30,7 @@ def fetchBalance(client, asset_1, asset_2, quote):
     averagePrice = (ticker["bid"] + ticker["ask"]) / 2
     return asset_1_val, asset_2_val, averagePrice
 
-def action(asset_1_val: float, asset_2_val: float, averagePrice: float, client, quote):
+def action(asset_1_val: float, asset_2_val: float, averagePrice: float, client, quote, pcdiff):
 
     asset_1_crrt_val = asset_1_val * averagePrice
     asset_2_crrt_val = asset_2_val * 1
@@ -70,6 +70,8 @@ def main():
     asset_2 = os.getenv("ASSET_2")
     percent_1 = os.getenv("PERCENT_1")
     percent_2 = os.getenv("PERCENT_2")
+    interval = int(os.getenv("INTERVALSEC"))
+    pcdiff = os.getenv("PCDIFF")
 
     # make param
     quote = str(asset_1) + "/" + str(asset_2)
@@ -80,12 +82,12 @@ def main():
             asset_1_val, asset_2_val, averagePrice = fetchBalance(
                 client, asset_1, asset_2, quote)
             if asset_2 == "USD":
-                action(asset_1_val, asset_2_val, averagePrice, client, quote)
+                action(asset_1_val, asset_2_val, averagePrice, client, quote, pcdiff)
             else:
                 raise(NotImplementedError("Not support asset_2 != stableCoin"))
-            time.sleep(60)
+            time.sleep(interval)
         except:
-            time.sleep(60)
+            time.sleep(interval)
     
 if __name__ == "__main__":
     main()
