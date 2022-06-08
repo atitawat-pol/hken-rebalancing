@@ -71,7 +71,7 @@ def main():
     percent_1 = os.getenv("PERCENT_1")
     percent_2 = os.getenv("PERCENT_2")
     interval = int(os.getenv("INTERVALSEC"))
-    pcdiff = os.getenv("PCDIFF")
+    pcdiff = float(os.getenv("PCDIFF"))
 
     # make param
     quote = str(asset_1) + "/" + str(asset_2)
