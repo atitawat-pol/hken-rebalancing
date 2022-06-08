@@ -35,7 +35,7 @@ def action(asset_1_val: float, asset_2_val: float, averagePrice: float, client, 
     asset_1_crrt_val = asset_1_val * averagePrice
     asset_2_crrt_val = asset_2_val * 1
     rebalance_mark   = ((asset_1_crrt_val + asset_2_crrt_val) / 2)
-    rebalance_percent_diff = 1
+    rebalance_percent_diff = pcdiff
 
     if   asset_1_crrt_val > (rebalance_mark + (rebalance_mark*rebalance_percent_diff/100) ) :
         print("asset_1_crrt_val ",asset_1_crrt_val ,">", (rebalance_mark + (rebalance_mark*rebalance_percent_diff/100) ))
