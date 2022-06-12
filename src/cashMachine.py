@@ -82,6 +82,7 @@ def main():
 
     client = authen(apiKey, secret, password, accountName)
     while True:
+        print("ACCOUNT_NAME:", accountName)
         print(datetime.now())
         print(f"Coin/USD: {asset_1}/{asset_2}")
         try:
