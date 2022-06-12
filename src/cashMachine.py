@@ -83,6 +83,7 @@ def main():
     client = authen(apiKey, secret, password, accountName)
     while True:
         print(datetime.now())
+        print(f"Coin/USD: {asset_1}/{asset_2}")
         try:
             asset_1_val, asset_2_val, averagePrice = fetchBalance(
                 client, asset_1, asset_2, quote)
