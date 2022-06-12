@@ -60,6 +60,7 @@ def main():
     from dotenv import load_dotenv
     import os
     import time
+    from datetime import datetime
 
     load_dotenv()
     apiKey = os.getenv("APIKEY")
@@ -81,6 +82,7 @@ def main():
 
     client = authen(apiKey, secret, password, accountName)
     while True:
+        print(datetime.now())
         try:
             asset_1_val, asset_2_val, averagePrice = fetchBalance(
                 client, asset_1, asset_2, quote)
