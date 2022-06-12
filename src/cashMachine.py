@@ -81,17 +81,12 @@ def main():
         raise(NotImplementedError("Only supported Coin-USD"))
 
     client = authen(apiKey, secret, password, accountName)
-    while True:
-        print("ACCOUNT_NAME:", accountName)
-        print(datetime.now())
-        print(f"Coin/USD: {asset_1}/{asset_2}")
-        try:
-            asset_1_val, asset_2_val, averagePrice = fetchBalance(
-                client, asset_1, asset_2, quote)
-            action(asset_1_val, asset_2_val, averagePrice, client, quote, pcdiff)
-            time.sleep(interval)
-        except:
-            time.sleep(interval)
+    print("ACCOUNT_NAME:", accountName)
+    print(datetime.now())
+    print(f"Coin/USD: {asset_1}/{asset_2}")
+    asset_1_val, asset_2_val, averagePrice = fetchBalance(
+        client, asset_1, asset_2, quote)
+    action(asset_1_val, asset_2_val, averagePrice, client, quote, pcdiff)
     
 if __name__ == "__main__":
     main()
